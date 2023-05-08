@@ -1,13 +1,16 @@
+import Image from "next/image";
 import Formulario from "./components/formulario";
 
 export default function Page() {
   return (
     <>
-      <div className="bg-white border-t-8 border-green-700">
-        <h1 className="text-6xl text-center">
+      <Image width={1280} height={320} src="/banner.png" alt="banner" />
+
+      <div className="bg-white border-t-8 border-green-700 mt-2">
+        <h1 className="text-xl md:text-4xl text-center">
           Pesquisa de egressos de cursos superiores
         </h1>
-        <div className="mx-24 my-4">
+        <div className="mx-2 md:mx-24 md:my-4">
           <p>
             Esta pesquisa é parte das ações do Programa de Acompanhamento de
             Egressos do IFPI.

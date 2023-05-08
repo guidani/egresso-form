@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type FormInputs = {
@@ -25,10 +26,11 @@ export default function Formulario() {
   const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
   return (
     <section className="my-4 container mx-auto">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 px-24 py-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
+        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <label htmlFor="email">Email</label>
           <input
+            type="email"
             {...register("email", { required: true })}
             className="border"
           />
@@ -36,14 +38,14 @@ export default function Formulario() {
             <span className="text-red-600">Este campo é necessário.</span>
           )}
         </div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 px-24 py-4">
+        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <label htmlFor="nome">Nome</label>
           <input {...register("nome", { required: true })} className="border" />
           {errors.nome && (
             <span className="text-red-600">Este campo é necessário.</span>
           )}
         </div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 px-24 py-4">
+        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <label htmlFor="genero">Genero</label>
           <select {...register("genero")} className="border">
             <option value="masculino">Masculino</option>
@@ -51,7 +53,7 @@ export default function Formulario() {
             <option value="outro">Outro</option>
           </select>
         </div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 px-24 py-4">
+        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <label htmlFor="data_nascimento">Data de nascimento</label>
           <input
             {...register("data_nascimento")}
@@ -59,7 +61,7 @@ export default function Formulario() {
             type="date"
           />
         </div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 px-24 py-4">
+        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <label htmlFor="ano_conclusao_curso">
             Em que ano você concluiu o curso?
           </label>
@@ -73,7 +75,7 @@ export default function Formulario() {
             type="number"
           />
         </div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 px-24 py-4">
+        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <label htmlFor="campus_conclusao_curso">
             Em qual campus você concluiu o curso?
           </label>
@@ -82,7 +84,7 @@ export default function Formulario() {
             <option value="teresina_sul">Teresina Zona Sul</option>
           </select>
         </div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 px-24 py-4">
+        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <label htmlFor="curso_realizado">
             Qual o curso de graduação realizado?
           </label>
@@ -95,7 +97,7 @@ export default function Formulario() {
             </option>
           </select>
         </div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 px-24 py-4">
+        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <label htmlFor="avaliacao_curso">
             Em relação ao curso que você concluiu, como avalia a formação
             ofertada?
@@ -107,7 +109,7 @@ export default function Formulario() {
             <option value="ruim">Ruim</option>
           </select>
         </div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 px-24 py-4">
+        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <label htmlFor="situacao_trabalho_estudo">
             Atualmente, qual a sua situação quanto a trabalho e estudos?
           </label>
@@ -127,7 +129,7 @@ export default function Formulario() {
             </option>
           </select>
         </div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 px-24 py-4">
+        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <label htmlFor="setor_atuacao">Em qual setor atua?</label>
           <select {...register("setor_atuacao")} className="border">
             <option value="industria">Industria</option>
@@ -138,7 +140,7 @@ export default function Formulario() {
             <option value="outro">Outro</option>
           </select>
         </div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 px-24 py-4">
+        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <label htmlFor="rendimento_medio">
             Qual seu rendimento médio mensal, considerando apenas a sua
             atividade profissional?
@@ -162,12 +164,19 @@ export default function Formulario() {
             </option>
           </select>
         </div>
-        <div className="flex flex-col">
+        <div className="flex justify-end gap-2">
           <input
             type="submit"
             value="Enviar"
-            className="bg-green-700 rounded-md text-white text-4xl hover:cursor-pointer hover:bg-green-900 py-2"
+            className="px-4 bg-green-700 rounded-md text-white text-lg hover:cursor-pointer hover:bg-green-900 active:bg-green-400"
           />
+          <Link href={"/"}>
+            <input
+              type="reset"
+              value="Cancelar"
+              className="px-4 bg-red-700 rounded-md text-white text-lg hover:cursor-pointer hover:bg-red-900 active:bg-red-400"
+            />
+          </Link>
         </div>
       </form>
     </section>
