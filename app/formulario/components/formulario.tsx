@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type FormInputs = {
@@ -17,6 +17,7 @@ type FormInputs = {
 };
 
 export default function Formulario() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -24,6 +25,16 @@ export default function Formulario() {
   } = useForm<FormInputs>();
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
+
+  function handleCancel() {
+    let text = "Tem certeza que deseja sair?";
+    if (confirm(text)) {
+      router.push("/");
+    } else {
+      return;
+    }
+  }
+
   return (
     <section className="my-4 container mx-auto">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
@@ -164,19 +175,19 @@ export default function Formulario() {
             </option>
           </select>
         </div>
-        <div className="flex justify-end gap-2">
+        <div className="flex justify-end gap-2 mx-4">
           <input
             type="submit"
             value="Enviar"
             className="px-4 bg-green-700 rounded-md text-white text-lg hover:cursor-pointer hover:bg-green-900 active:bg-green-400"
           />
-          <Link href={"/"}>
-            <input
-              type="reset"
-              value="Cancelar"
-              className="px-4 bg-red-700 rounded-md text-white text-lg hover:cursor-pointer hover:bg-red-900 active:bg-red-400"
-            />
-          </Link>
+
+          <input
+            type="reset"
+            value="Cancelar"
+            className="px-4 bg-red-700 rounded-md text-white text-lg hover:cursor-pointer hover:bg-red-900 active:bg-red-400"
+            onClick={handleCancel}
+          />
         </div>
       </form>
     </section>
