@@ -2,6 +2,8 @@ import Image from "next/image";
 import Formulario from "./components/formulario";
 import { getCursos } from "./services/getCursos";
 
+export const revalidate = 10
+
 export default async function Page() {
   const { data } = await getCursos();
   console.log("🚀 ~ file: page.tsx:8 ~ Page ~ data:", data);
