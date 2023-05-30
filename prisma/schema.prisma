@@ -9,3 +9,37 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model Curso {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String?
+  createdAt DateTime? @default(now())
+}
+
+model Campus {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdAt DateTime? @default(now())
+}
+
+model EgressoForm {
+  id                       String @id @default(auto()) @map("_id") @db.ObjectId
+  email                    String?
+  nome                     String?
+  genero                   String?
+  data_de_nascimento       String?
+  ano_conclusao_curso      String?
+  campus_conclusao_curso   String?
+  curso_realizado          String?
+  avaliacao_curso          String?
+  situacao_trabalho_estudo String?
+  setor_atuacao            String?
+  segmento_mercado         String?
+  atua_startup             String?
+  rendimento_medio         String?
+  satisfacao_renda_atual   String?
+  tipo_plataforma          String?
+  tipo_contrato            String?
+  modalidade_trabalho      String?
+  tempo_exp                String?
+}
