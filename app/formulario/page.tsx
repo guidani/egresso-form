@@ -1,21 +1,19 @@
 import Image from "next/image";
 import Formulario from "./components/formulario";
+import { getCampus } from "./services/getCampus";
 import { getCursos } from "./services/getCursos";
 
-export const revalidate = 10
+export const revalidate = 10;
 
 export default async function Page() {
   const cursos = await getCursos();
-  const lista_de_cursos = cursos.data
-  // console.log("🚀 ~ file: page.tsx:8 ~ Page ~ data:", lista_de_cursos);
+  const campus = await getCampus();
+  const lista_de_cursos = cursos.data;
+  const lista_de_campus = campus.data;
 
   return (
     <>
       <Image width={1280} height={320} src="/banner.png" alt="banner" />
-      {/* @ts-ignore */}
-      {/* {lista_de_cursos.map((dt) => {
-        return <p key={dt.id}>{dt.name}</p>;
-      })} */}
       <div className="bg-white border-t-8 border-green-700 mt-2">
         <h1 className="text-xl md:text-4xl text-center">
           Pesquisa de egressos de cursos superiores
@@ -37,7 +35,7 @@ export default async function Page() {
           </p>
         </div>
       </div>
-      <Formulario campus={[]} cursos={lista_de_cursos}/>
+      <Formulario campus={lista_de_campus} cursos={lista_de_cursos} />
     </>
   );
 }

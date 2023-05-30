@@ -39,6 +39,25 @@ export default function Formulario({ campus, cursos }: PageProps) {
   // TODO: enviar para o banco de dados
   const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
 
+
+  async function fetchFormToDatabase(data: FormInputs)  {
+    console.log(data)
+    try {
+      const resp = await fetch("/api/egresso-form",{
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+      if(resp.ok){
+        if(confirm("Formulário enviado. Obrigado!")){
+            window.location.reload()
+        }
+      }
+    } catch (error) {
+      return JSON.stringify({msg: "Ocorreu um erro inesperado. Tente novamente."})
+    }
+  }
+
   function handleCancel() {
     let text = "Tem certeza que deseja sair?";
     if (confirm(text)) {
@@ -50,7 +69,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
 
   return (
     <section className="my-4 container mx-auto">
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
+      <form onSubmit={handleSubmit(fetchFormToDatabase)} className="flex flex-col gap-2">
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <label htmlFor="email">Email</label>
           <input
@@ -104,8 +123,9 @@ export default function Formulario({ campus, cursos }: PageProps) {
             Em qual campus você concluiu o curso?
           </label>
           <select {...register("campus_conclusao_curso")} className="border">
-            <option value="teresina_central">Teresina Central</option>
-            <option value="teresina_sul">Teresina Zona Sul</option>
+          {campus.map((camp) => {
+              return <option key={camp.id} value={camp.name.trim().replaceAll(' ','_')}>{camp.name}</option>;
+            })}
           </select>
         </div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
