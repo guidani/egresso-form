@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-type FormInputs = {
+interface FormInputs {
   email: string;
   nome: string;
   genero: string;
@@ -23,7 +23,12 @@ type FormInputs = {
   tempo_exp: string;
 };
 
-export default function Formulario() {
+type PageProps = {
+  cursos: Array<any>;
+  campus: Array<any>;
+}
+
+export default function Formulario({campus, cursos}:PageProps) {
   const router = useRouter();
   const {
     register,
@@ -31,6 +36,7 @@ export default function Formulario() {
     formState: { errors },
   } = useForm<FormInputs>();
 
+  // TODO: enviar para o banco de dados
   const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
 
   function handleCancel() {
@@ -44,6 +50,11 @@ export default function Formulario() {
 
   return (
     <section className="my-4 container mx-auto">
+      {/*  */}
+      {cursos.map((c) => {
+        return <p key={c.id}>{c.name}</p>
+      })}
+      {/*  */}
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <label htmlFor="email">Email</label>

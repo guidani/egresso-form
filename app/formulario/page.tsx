@@ -5,16 +5,17 @@ import { getCursos } from "./services/getCursos";
 export const revalidate = 10
 
 export default async function Page() {
-  const { data } = await getCursos();
-  console.log("🚀 ~ file: page.tsx:8 ~ Page ~ data:", data);
+  const cursos = await getCursos();
+  const lista_de_cursos = cursos.data
+  // console.log("🚀 ~ file: page.tsx:8 ~ Page ~ data:", lista_de_cursos);
 
   return (
     <>
       <Image width={1280} height={320} src="/banner.png" alt="banner" />
       {/* @ts-ignore */}
-      {data.map((dt) => {
+      {/* {lista_de_cursos.map((dt) => {
         return <p key={dt.id}>{dt.name}</p>;
-      })}
+      })} */}
       <div className="bg-white border-t-8 border-green-700 mt-2">
         <h1 className="text-xl md:text-4xl text-center">
           Pesquisa de egressos de cursos superiores
@@ -36,7 +37,7 @@ export default async function Page() {
           </p>
         </div>
       </div>
-      <Formulario />
+      <Formulario campus={[]} cursos={lista_de_cursos}/>
     </>
   );
 }
