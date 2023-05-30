@@ -21,14 +21,14 @@ interface FormInputs {
   tipo_contrato: string;
   modalidade_trabalho: string;
   tempo_exp: string;
-};
+}
 
 type PageProps = {
   cursos: Array<any>;
   campus: Array<any>;
-}
+};
 
-export default function Formulario({campus, cursos}:PageProps) {
+export default function Formulario({ campus, cursos }: PageProps) {
   const router = useRouter();
   const {
     register,
@@ -50,11 +50,6 @@ export default function Formulario({campus, cursos}:PageProps) {
 
   return (
     <section className="my-4 container mx-auto">
-      {/*  */}
-      {cursos.map((c) => {
-        return <p key={c.id}>{c.name}</p>
-      })}
-      {/*  */}
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <label htmlFor="email">Email</label>
@@ -118,12 +113,9 @@ export default function Formulario({campus, cursos}:PageProps) {
             Qual o curso de graduação realizado?
           </label>
           <select {...register("curso_realizado")} className="border">
-            <option value="Bacharelado_em_Administração">
-              Bacharelado em Administração
-            </option>
-            <option value="Bacharelado_em_Agronomia">
-              Bacharelado em Agronomia
-            </option>
+          {cursos.map((c) => {
+              return <option key={c.id} value={c.name.trim().replaceAll(' ','_')}>{c.name}</option>;
+            })}
           </select>
         </div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
