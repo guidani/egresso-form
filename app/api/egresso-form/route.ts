@@ -23,6 +23,21 @@ export async function POST(request: Request) {
       tipo_plataforma,
     }: Partial<EgressoForm> = await request.json();
 
+    const hasUser = await prisma.egressoForm.findFirst({
+      where: {
+        email,
+      },
+    });
+
+    if (hasUser) {
+      return new Response(
+        JSON.stringify({
+          message: "There is already an account with that email.",
+        }),
+        { status: 400, statusText: "There is already an account with that email." }
+      );
+    }
+
     const resp = await prisma.egressoForm.create({
       data: {
         ano_conclusao_curso: ano_conclusao_curso,
@@ -45,14 +60,11 @@ export async function POST(request: Request) {
         tipo_plataforma: tipo_plataforma,
       },
     });
-    return new Response(
-      JSON.stringify({ message: `Egresso criado com o id ${resp.id}` }),
-      {
-        status: 201,
-        statusText: "ok",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    return new Response(JSON.stringify({ message: "Egresso criado." }), {
+      status: 201,
+      statusText: "Egresso criado",
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
     return new Response(
       JSON.stringify({

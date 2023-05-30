@@ -36,12 +36,9 @@ export default function Formulario({ campus, cursos }: PageProps) {
     formState: { errors },
   } = useForm<FormInputs>();
 
-  // TODO: enviar para o banco de dados
-  const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
-
+  // const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
 
   async function fetchFormToDatabase(data: FormInputs)  {
-    console.log(data)
     try {
       const resp = await fetch("/api/egresso-form",{
         method: "POST",
@@ -52,6 +49,8 @@ export default function Formulario({ campus, cursos }: PageProps) {
         if(confirm("Formulário enviado. Obrigado!")){
             window.location.reload()
         }
+      } else{
+        window.alert(resp.statusText)
       }
     } catch (error) {
       return JSON.stringify({msg: "Ocorreu um erro inesperado. Tente novamente."})
