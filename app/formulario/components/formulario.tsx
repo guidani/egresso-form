@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import CustomLabel from "./CustomLabel";
 
 interface FormInputs {
   email: string;
@@ -38,22 +39,24 @@ export default function Formulario({ campus, cursos }: PageProps) {
 
   // const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
 
-  async function fetchFormToDatabase(data: FormInputs)  {
+  async function fetchFormToDatabase(data: FormInputs) {
     try {
-      const resp = await fetch("/api/egresso-form",{
+      const resp = await fetch("/api/egresso-form", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      })
-      if(resp.ok){
-        if(confirm("Formulário enviado. Obrigado!")){
-            window.location.reload()
+        body: JSON.stringify(data),
+      });
+      if (resp.ok) {
+        if (confirm("Formulário enviado. Obrigado!")) {
+          window.location.reload();
         }
-      } else{
-        window.alert(resp.statusText)
+      } else {
+        window.alert(resp.statusText);
       }
     } catch (error) {
-      return JSON.stringify({msg: "Ocorreu um erro inesperado. Tente novamente."})
+      return JSON.stringify({
+        msg: "Ocorreu um erro inesperado. Tente novamente.",
+      });
     }
   }
 
@@ -68,46 +71,57 @@ export default function Formulario({ campus, cursos }: PageProps) {
 
   return (
     <section className="my-4 container mx-auto">
-      <form onSubmit={handleSubmit(fetchFormToDatabase)} className="flex flex-col gap-2">
+      <form
+        onSubmit={handleSubmit(fetchFormToDatabase)}
+        className="flex flex-col gap-2"
+      >
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="email">Email</label>
+          <CustomLabel htmlfor={"email"} text="Email" />
           <input
             type="email"
+            id="email"
             {...register("email", { required: true })}
-            className="border"
+            className="input input-bordered w-full"
           />
           {errors.email && (
             <span className="text-red-600">Este campo é necessário.</span>
           )}
         </div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="nome">Nome</label>
-          <input {...register("nome", { required: true })} className="border" />
+          <CustomLabel htmlfor={"nome"} text="Nome" />
+          <input
+            {...register("nome", { required: true })}
+            className="border"
+            id="nome"
+          />
           {errors.nome && (
             <span className="text-red-600">Este campo é necessário.</span>
           )}
         </div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="genero">Genero</label>
-          <select {...register("genero")} className="border">
+          <CustomLabel htmlfor={"genero"} text="Genero" />
+          <select {...register("genero")} className="border" id="genero">
             <option value="masculino">Masculino</option>
             <option value="feminino">Feminino</option>
             <option value="outro">Outro</option>
           </select>
         </div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="data_nascimento">Data de nascimento</label>
+          <CustomLabel htmlfor={"data_nascimento"} text="Data de nascimento" />
           <input
+            id="data_nascimento"
             {...register("data_nascimento")}
             className="border"
             type="date"
           />
         </div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="ano_conclusao_curso">
-            Em que ano você concluiu o curso?
-          </label>
+          <CustomLabel
+            htmlfor={"ano_conclusao_curso"}
+            text="Em que ano você concluiu o curso?"
+          />
           <input
+            id="ano_conclusao_curso"
             {...register("ano_conclusao_curso", {
               max: 2023,
               min: 1900,
@@ -118,31 +132,57 @@ export default function Formulario({ campus, cursos }: PageProps) {
           />
         </div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="campus_conclusao_curso">
-            Em qual campus você concluiu o curso?
-          </label>
-          <select {...register("campus_conclusao_curso")} className="border">
-          {campus.map((camp) => {
-              return <option key={camp.id} value={camp.name.trim().replaceAll(' ','_')}>{camp.name}</option>;
+          <CustomLabel
+            htmlfor={"campus_conclusao_curso"}
+            text="Em qual campus você concluiu o curso?"
+          />
+          <select
+            {...register("campus_conclusao_curso")}
+            className="border"
+            id="campus_conclusao_curso"
+          >
+            {campus.map((camp) => {
+              return (
+                <option
+                  key={camp.id}
+                  value={camp.name.trim().replaceAll(" ", "_")}
+                >
+                  {camp.name}
+                </option>
+              );
             })}
           </select>
         </div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="curso_realizado">
-            Qual o curso de graduação realizado?
-          </label>
-          <select {...register("curso_realizado")} className="border">
-          {cursos.map((c) => {
-              return <option key={c.id} value={c.name.trim().replaceAll(' ','_')}>{c.name}</option>;
+          <CustomLabel
+            htmlfor={"curso_realizado"}
+            text="Qual o curso de graduação realizado?"
+          />
+          <select
+            {...register("curso_realizado")}
+            className="border"
+            id="curso_realizado"
+          >
+            {cursos.map((c) => {
+              return (
+                <option key={c.id} value={c.name.trim().replaceAll(" ", "_")}>
+                  {c.name}
+                </option>
+              );
             })}
           </select>
         </div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="avaliacao_curso">
-            Em relação ao curso que você concluiu, como avalia a formação
-            ofertada?
-          </label>
-          <select {...register("avaliacao_curso")} className="border">
+          <CustomLabel
+            htmlfor={"avaliacao_curso"}
+            text="Em relação ao curso que você concluiu, como avalia a formação
+            ofertada?"
+          />
+          <select
+            {...register("avaliacao_curso")}
+            className="border"
+            id="avaliacao_curso"
+          >
             <option value="muito_boa">Muito Boa</option>
             <option value="boa">Boa</option>
             <option value="regular">Regular</option>
@@ -150,10 +190,15 @@ export default function Formulario({ campus, cursos }: PageProps) {
           </select>
         </div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="situacao_trabalho_estudo">
-            Atualmente, qual a sua situação quanto a trabalho e estudos?
-          </label>
-          <select {...register("situacao_trabalho_estudo")} className="border">
+          <CustomLabel
+            htmlfor={"situacao_trabalho_estudo"}
+            text="Atualmente, qual a sua situação quanto a trabalho e estudos?"
+          />
+          <select
+            {...register("situacao_trabalho_estudo")}
+            className="border"
+            id="situacao_trabalho_estudo"
+          >
             <option value="apenas_trabalhando">Apenas trabalhando</option>
             <option value="apenas_estudando">Apenas estudando</option>
             <option value="trabalhando_estudando">
@@ -171,8 +216,15 @@ export default function Formulario({ campus, cursos }: PageProps) {
         </div>
 
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="setor_atuacao">Qual o setor em que atua?</label>
-          <select {...register("setor_atuacao")} className="border">
+          <CustomLabel
+            htmlfor={"setor_atuacao"}
+            text="Qual o setor em que atua?"
+          />
+          <select
+            {...register("setor_atuacao")}
+            className="border"
+            id="setor_atuacao"
+          >
             <option value="industria">Privado</option>
             <option value="servicos">Público</option>
             <option value="agricultura">Terceiro setor</option>
@@ -181,10 +233,15 @@ export default function Formulario({ campus, cursos }: PageProps) {
         </div>
 
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="segmento_mercado">
-            Qual o segmento de mercado em que atua?
-          </label>
-          <select {...register("segmento_mercado")} className="border">
+          <CustomLabel
+            htmlfor={"segmento_mercado"}
+            text="Qual o segmento de mercado em que atua?"
+          />
+          <select
+            {...register("segmento_mercado")}
+            className="border"
+            id="segmento_mercado"
+          >
             <option value="agricultura">Agricultura</option>
             <option value="comunicacao_midia">Comunicação e mídia</option>
             <option value="construcao_engenharia">
@@ -219,19 +276,28 @@ export default function Formulario({ campus, cursos }: PageProps) {
         </div>
 
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="atua_startup">Atua em Startup?</label>
-          <select {...register("atua_startup")} className="border">
+          <CustomLabel htmlfor={"atua_startup"} text="Atua em Startup?" />
+          <select
+            {...register("atua_startup")}
+            className="border"
+            id="atua_startup"
+          >
             <option value="sim">Sim</option>
             <option value="nao">Não</option>
           </select>
         </div>
 
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="rendimento_medio">
-            Qual seu rendimento médio mensal, considerando apenas a sua
-            atividade profissional?
-          </label>
-          <select {...register("rendimento_medio")} className="border">
+          <CustomLabel
+            htmlfor={"rendimento_medio"}
+            text="Qual seu rendimento médio mensal, considerando apenas a sua
+            atividade profissional?"
+          />
+          <select
+            {...register("rendimento_medio")}
+            className="border"
+            id="rendimento_medio"
+          >
             <option value="ate_um_salario">Até 1 salário mínimo</option>
             <option value="entre_um_e_dois_salarios">
               Entre 1 e 2 salários mínimos
@@ -252,10 +318,15 @@ export default function Formulario({ campus, cursos }: PageProps) {
         </div>
 
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="satisfacao_renda_atual">
-            Qual sua satisfação com a sua renda atual?
-          </label>
-          <select {...register("satisfacao_renda_atual")} className="border">
+          <CustomLabel
+            htmlfor={"satisfacao_renda_atual"}
+            text="Qual sua satisfação com a sua renda atual?"
+          />
+          <select
+            {...register("satisfacao_renda_atual")}
+            className="border"
+            id="satisfacao_renda_atual"
+          >
             <option value="satisfeito">Satisfeito</option>
             <option value="insatisfeito">Insatisfeito</option>
             <option value="indiferente">Indiferente</option>
@@ -265,10 +336,15 @@ export default function Formulario({ campus, cursos }: PageProps) {
         </div>
 
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="tipo_plataforma">
-            Trabalha em que tipo de plataforma?
-          </label>
-          <select {...register("tipo_plataforma")} className="border">
+          <CustomLabel
+            htmlfor={"tipo_plataforma"}
+            text="Trabalha em que tipo de plataforma?"
+          />
+          <select
+            {...register("tipo_plataforma")}
+            className="border"
+            id="tipo_plataforma"
+          >
             <option value="web">Web</option>
             <option value="backend">Back-End</option>
             <option value="dados">Dados</option>
@@ -286,20 +362,30 @@ export default function Formulario({ campus, cursos }: PageProps) {
         </div>
 
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="tipo_contrato">
-            Qual seu tipo de contrato de trabalho?
-          </label>
-          <select {...register("tipo_contrato")} className="border">
+          <CustomLabel
+            htmlfor={"tipo_contrato"}
+            text="Qual seu tipo de contrato de trabalho?"
+          />
+          <select
+            {...register("tipo_contrato")}
+            className="border"
+            id="tipo_contrato"
+          >
             <option value="clt">CLT</option>
             <option value="pj">PJ</option>
           </select>
         </div>
 
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="modalidade_trabalho">
-            Em qual modalidade de trabalho você está atualmente?
-          </label>
-          <select {...register("modalidade_trabalho")} className="border">
+          <CustomLabel
+            htmlfor={"modalidade_trabalho"}
+            text="Em qual modalidade de trabalho você está atualmente?"
+          />
+          <select
+            {...register("modalidade_trabalho")}
+            className="border"
+            id="modalidade_trabalho"
+          >
             <option value="remoto">Remoto</option>
             <option value="hibrido">Hibrido</option>
             <option value="presencial">Presencial</option>
@@ -307,8 +393,11 @@ export default function Formulario({ campus, cursos }: PageProps) {
         </div>
 
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <label htmlFor="tempo_exp">Qual seu tempo de experiência?</label>
-          <select {...register("tempo_exp")} className="border">
+          <CustomLabel
+            htmlfor={"tempo_exp"}
+            text="Qual seu tempo de experiência?"
+          />
+          <select {...register("tempo_exp")} className="border" id="tempo_exp">
             <option value="menos_1_ano">Menos de 1 ano</option>
             <option value="entre_1_2_anos">Entre 1 e 2 anos</option>
             <option value="entre_2_4_anos">Entre 2 e 4 anos</option>
@@ -325,13 +414,13 @@ export default function Formulario({ campus, cursos }: PageProps) {
           <input
             type="submit"
             value="Enviar"
-            className="px-4 bg-green-700 rounded-md text-white text-lg hover:cursor-pointer hover:bg-green-900 active:bg-green-400"
+            className="btn btn-active btn-success hover:opacity-80"
           />
 
           <input
             type="reset"
             value="Cancelar"
-            className="px-4 bg-red-700 rounded-md text-white text-lg hover:cursor-pointer hover:bg-red-900 active:bg-red-400"
+            className="btn btn-error btn-active hover:opacity-80"
             onClick={handleCancel}
           />
         </div>
