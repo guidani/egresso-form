@@ -19,3 +19,15 @@ type EgressoForm = {
   modalidade_trabalho: string?;
   tempo_exp: string?;
 };
+
+type Curso = {
+  id: string;
+  name: string;
+  createdAt: Date;
+};
+
+type Campus = {
+  id: string;
+  name: string;
+  createdAt: Date;
+};
