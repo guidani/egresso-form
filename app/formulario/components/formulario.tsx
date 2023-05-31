@@ -71,11 +71,11 @@ export default function Formulario({ campus, cursos }: PageProps) {
         body: JSON.stringify(data),
       });
       if (resp.ok) {
-        if (confirm("Formulário enviado. Obrigado!")) {
-          window.location.reload();
-        }
+        router.replace("/obrigado");
       } else {
-        window.alert(resp.statusText);
+        window.alert(
+          "Houve um problema ao processar a sua solicitação. Tente novamente!"
+        );
       }
       setLoading(null);
     } catch (error) {

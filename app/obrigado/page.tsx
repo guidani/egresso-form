@@ -12,7 +12,7 @@ export default function Page() {
     const timer = setTimeout(() => {
       setSeconds((prevSeconds) => prevSeconds - 1);
     }, 1000);
-    console.log(seconds);
+    
     return () => {
       clearTimeout(timer);
     };
