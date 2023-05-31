@@ -1,5 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import CustomLabel from "./CustomLabel";
 
@@ -30,6 +31,7 @@ type PageProps = {
 };
 
 export default function Formulario({ campus, cursos }: PageProps) {
+  const [loading, setLoading] = useState<boolean | null>(null);
   const router = useRouter();
   const {
     register,
@@ -41,6 +43,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
 
   async function fetchFormToDatabase(data: FormInputs) {
     try {
+      setLoading(true);
       const resp = await fetch("/api/egresso-form", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -53,6 +56,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
       } else {
         window.alert(resp.statusText);
       }
+      setLoading(null);
     } catch (error) {
       return JSON.stringify({
         msg: "Ocorreu um erro inesperado. Tente novamente.",
@@ -87,6 +91,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             <span className="text-red-600">Este campo é necessário.</span>
           )}
         </div>
+        <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel htmlfor={"nome"} text="Nome" />
           <input
@@ -98,14 +103,20 @@ export default function Formulario({ campus, cursos }: PageProps) {
             <span className="text-red-600">Este campo é necessário.</span>
           )}
         </div>
+        <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel htmlfor={"genero"} text="Genero" />
-          <select {...register("genero")} className="select select-bordered w-full" id="genero">
+          <select
+            {...register("genero")}
+            className="select select-bordered w-full"
+            id="genero"
+          >
             <option value="masculino">Masculino</option>
             <option value="feminino">Feminino</option>
             <option value="outro">Outro</option>
           </select>
         </div>
+        <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel htmlfor={"data_nascimento"} text="Data de nascimento" />
           <input
@@ -115,6 +126,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             type="date"
           />
         </div>
+        <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel
             htmlfor={"ano_conclusao_curso"}
@@ -131,6 +143,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             type="number"
           />
         </div>
+        <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel
             htmlfor={"campus_conclusao_curso"}
@@ -153,6 +166,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             })}
           </select>
         </div>
+        <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel
             htmlfor={"curso_realizado"}
@@ -172,6 +186,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             })}
           </select>
         </div>
+        <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel
             htmlfor={"avaliacao_curso"}
@@ -189,6 +204,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             <option value="ruim">Ruim</option>
           </select>
         </div>
+        <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel
             htmlfor={"situacao_trabalho_estudo"}
@@ -214,7 +230,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             </option>
           </select>
         </div>
-
+        <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel
             htmlfor={"setor_atuacao"}
@@ -231,7 +247,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             <option value="outro">Outro</option>
           </select>
         </div>
-
+        <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel
             htmlfor={"segmento_mercado"}
@@ -274,7 +290,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             <option value="outro">Outro</option>
           </select>
         </div>
-
+        <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel htmlfor={"atua_startup"} text="Atua em Startup?" />
           <select
@@ -286,7 +302,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             <option value="nao">Não</option>
           </select>
         </div>
-
+        <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel
             htmlfor={"rendimento_medio"}
@@ -316,7 +332,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             </option>
           </select>
         </div>
-
+        <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel
             htmlfor={"satisfacao_renda_atual"}
@@ -334,7 +350,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             <option value="muito_insatisfeito">Muito Insatisfeito</option>
           </select>
         </div>
-
+        <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel
             htmlfor={"tipo_plataforma"}
@@ -360,7 +376,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             <option value="outros">Outros</option>
           </select>
         </div>
-
+        <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel
             htmlfor={"tipo_contrato"}
@@ -375,7 +391,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             <option value="pj">PJ</option>
           </select>
         </div>
-
+        <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel
             htmlfor={"modalidade_trabalho"}
@@ -391,13 +407,17 @@ export default function Formulario({ campus, cursos }: PageProps) {
             <option value="presencial">Presencial</option>
           </select>
         </div>
-
+        <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel
             htmlfor={"tempo_exp"}
             text="Qual seu tempo de experiência?"
           />
-          <select {...register("tempo_exp")} className="select select-bordered w-full" id="tempo_exp">
+          <select
+            {...register("tempo_exp")}
+            className="select select-bordered w-full"
+            id="tempo_exp"
+          >
             <option value="menos_1_ano">Menos de 1 ano</option>
             <option value="entre_1_2_anos">Entre 1 e 2 anos</option>
             <option value="entre_2_4_anos">Entre 2 e 4 anos</option>
@@ -409,13 +429,25 @@ export default function Formulario({ campus, cursos }: PageProps) {
             <option value="mais_20_anos">Mais de 20 anos</option>
           </select>
         </div>
-
+        <div className="divider"></div>
         <div className="flex justify-end gap-2 mx-4">
-          <input
-            type="submit"
-            value="Enviar"
-            className="btn btn-active btn-success hover:opacity-80"
-          />
+          {loading ? (
+            <>
+              <button
+                type="submit"
+                value="Enviar"
+                className="btn loading btn-disabled"
+              >Enviar</button>
+            </>
+          ) : (
+            <>
+              <button
+                type="submit"
+                value="Enviar"
+                className="btn btn-active btn-success hover:opacity-80"
+              >Enviar</button>
+            </>
+          )}
 
           <input
             type="reset"
