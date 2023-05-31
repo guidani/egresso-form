@@ -37,7 +37,28 @@ export default function Formulario({ campus, cursos }: PageProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormInputs>();
+  } = useForm<FormInputs>({
+    defaultValues: {
+      email: "",
+      nome: "",
+      genero: "",
+      data_nascimento: "",
+      ano_conclusao_curso: "",
+      campus_conclusao_curso: "",
+      curso_realizado: "",
+      avaliacao_curso: "",
+      situacao_trabalho_estudo: "",
+      setor_atuacao: "",
+      rendimento_medio: "",
+      segmento_mercado: "",
+      atua_startup: "",
+      satisfacao_renda_atual: "",
+      tipo_plataforma: "",
+      tipo_contrato: "",
+      modalidade_trabalho: "",
+      tempo_exp: "",
+    },
+  });
 
   // const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
 
@@ -110,7 +131,11 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("genero")}
             className="select select-bordered w-full"
             id="genero"
+            value={""}
           >
+            <option value="" disabled>
+              ---
+            </option>
             <option value="masculino">Masculino</option>
             <option value="feminino">Feminino</option>
             <option value="outro">Outro</option>
@@ -153,7 +178,11 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("campus_conclusao_curso")}
             className="select select-bordered w-full"
             id="campus_conclusao_curso"
+            value={""}
           >
+            <option value="" disabled>
+              ---
+            </option>
             {campus.map((camp) => {
               return (
                 <option
@@ -176,7 +205,11 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("curso_realizado")}
             className="select select-bordered w-full"
             id="curso_realizado"
+            value={""}
           >
+            <option value="" disabled>
+              ---
+            </option>
             {cursos.map((c) => {
               return (
                 <option key={c.id} value={c.name.trim().replaceAll(" ", "_")}>
@@ -197,7 +230,11 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("avaliacao_curso")}
             className="select select-bordered w-full"
             id="avaliacao_curso"
+            value={""}
           >
+            <option value="" disabled>
+              ---
+            </option>
             <option value="muito_boa">Muito Boa</option>
             <option value="boa">Boa</option>
             <option value="regular">Regular</option>
@@ -214,7 +251,11 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("situacao_trabalho_estudo")}
             className="select select-bordered w-full"
             id="situacao_trabalho_estudo"
+            value={""}
           >
+            <option value="" disabled>
+              ---
+            </option>
             <option value="apenas_trabalhando">Apenas trabalhando</option>
             <option value="apenas_estudando">Apenas estudando</option>
             <option value="trabalhando_estudando">
@@ -240,7 +281,11 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("setor_atuacao")}
             className="select select-bordered w-full"
             id="setor_atuacao"
+            value={""}
           >
+            <option value="" disabled>
+              ---
+            </option>
             <option value="industria">Privado</option>
             <option value="servicos">Público</option>
             <option value="agricultura">Terceiro setor</option>
@@ -257,7 +302,11 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("segmento_mercado")}
             className="select select-bordered w-full"
             id="segmento_mercado"
+            value={""}
           >
+            <option value="" disabled>
+              ---
+            </option>
             <option value="agricultura">Agricultura</option>
             <option value="comunicacao_midia">Comunicação e mídia</option>
             <option value="construcao_engenharia">
@@ -297,7 +346,11 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("atua_startup")}
             className="select select-bordered w-full"
             id="atua_startup"
+            value={""}
           >
+            <option value="" disabled>
+              ---
+            </option>
             <option value="sim">Sim</option>
             <option value="nao">Não</option>
           </select>
@@ -313,7 +366,11 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("rendimento_medio")}
             className="select select-bordered w-full"
             id="rendimento_medio"
+            value={""}
           >
+            <option value="" disabled>
+              ---
+            </option>
             <option value="ate_um_salario">Até 1 salário mínimo</option>
             <option value="entre_um_e_dois_salarios">
               Entre 1 e 2 salários mínimos
@@ -342,7 +399,11 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("satisfacao_renda_atual")}
             className="select select-bordered w-full"
             id="satisfacao_renda_atual"
+            value={""}
           >
+            <option value="" disabled>
+              ---
+            </option>
             <option value="satisfeito">Satisfeito</option>
             <option value="insatisfeito">Insatisfeito</option>
             <option value="indiferente">Indiferente</option>
@@ -360,7 +421,11 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("tipo_plataforma")}
             className="select select-bordered w-full"
             id="tipo_plataforma"
+            value={""}
           >
+            <option value="" disabled>
+              ---
+            </option>
             <option value="web">Web</option>
             <option value="backend">Back-End</option>
             <option value="dados">Dados</option>
@@ -386,7 +451,11 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("tipo_contrato")}
             className="select select-bordered w-full"
             id="tipo_contrato"
+            value={""}
           >
+            <option value="" disabled>
+              ---
+            </option>
             <option value="clt">CLT</option>
             <option value="pj">PJ</option>
           </select>
@@ -401,7 +470,11 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("modalidade_trabalho")}
             className="select select-bordered w-full"
             id="modalidade_trabalho"
+            value={""}
           >
+            <option value="" disabled>
+              ---
+            </option>
             <option value="remoto">Remoto</option>
             <option value="hibrido">Hibrido</option>
             <option value="presencial">Presencial</option>
@@ -417,7 +490,11 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("tempo_exp")}
             className="select select-bordered w-full"
             id="tempo_exp"
+            value={""}
           >
+            <option value="" disabled>
+              ---
+            </option>
             <option value="menos_1_ano">Menos de 1 ano</option>
             <option value="entre_1_2_anos">Entre 1 e 2 anos</option>
             <option value="entre_2_4_anos">Entre 2 e 4 anos</option>
@@ -437,7 +514,9 @@ export default function Formulario({ campus, cursos }: PageProps) {
                 type="submit"
                 value="Enviar"
                 className="btn loading btn-disabled"
-              >Enviar</button>
+              >
+                Enviar
+              </button>
             </>
           ) : (
             <>
@@ -445,7 +524,9 @@ export default function Formulario({ campus, cursos }: PageProps) {
                 type="submit"
                 value="Enviar"
                 className="btn btn-active btn-success hover:opacity-80"
-              >Enviar</button>
+              >
+                Enviar
+              </button>
             </>
           )}
 
