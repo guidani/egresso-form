@@ -91,7 +91,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
           <CustomLabel htmlfor={"nome"} text="Nome" />
           <input
             {...register("nome", { required: true })}
-            className="border"
+            className="input input-bordered w-full"
             id="nome"
           />
           {errors.nome && (
@@ -100,7 +100,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
         </div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel htmlfor={"genero"} text="Genero" />
-          <select {...register("genero")} className="border" id="genero">
+          <select {...register("genero")} className="select select-bordered w-full" id="genero">
             <option value="masculino">Masculino</option>
             <option value="feminino">Feminino</option>
             <option value="outro">Outro</option>
@@ -111,7 +111,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
           <input
             id="data_nascimento"
             {...register("data_nascimento")}
-            className="border"
+            className="input input-bordered w-full"
             type="date"
           />
         </div>
@@ -127,7 +127,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
               min: 1900,
               value: "2023",
             })}
-            className="border"
+            className="input input-bordered w-full"
             type="number"
           />
         </div>
@@ -138,7 +138,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
           />
           <select
             {...register("campus_conclusao_curso")}
-            className="border"
+            className="select select-bordered w-full"
             id="campus_conclusao_curso"
           >
             {campus.map((camp) => {
@@ -160,7 +160,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
           />
           <select
             {...register("curso_realizado")}
-            className="border"
+            className="select select-bordered w-full"
             id="curso_realizado"
           >
             {cursos.map((c) => {
@@ -180,7 +180,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
           />
           <select
             {...register("avaliacao_curso")}
-            className="border"
+            className="select select-bordered w-full"
             id="avaliacao_curso"
           >
             <option value="muito_boa">Muito Boa</option>
@@ -196,7 +196,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
           />
           <select
             {...register("situacao_trabalho_estudo")}
-            className="border"
+            className="select select-bordered w-full"
             id="situacao_trabalho_estudo"
           >
             <option value="apenas_trabalhando">Apenas trabalhando</option>
@@ -222,7 +222,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
           />
           <select
             {...register("setor_atuacao")}
-            className="border"
+            className="select select-bordered w-full"
             id="setor_atuacao"
           >
             <option value="industria">Privado</option>
@@ -239,7 +239,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
           />
           <select
             {...register("segmento_mercado")}
-            className="border"
+            className="select select-bordered w-full"
             id="segmento_mercado"
           >
             <option value="agricultura">Agricultura</option>
@@ -279,7 +279,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
           <CustomLabel htmlfor={"atua_startup"} text="Atua em Startup?" />
           <select
             {...register("atua_startup")}
-            className="border"
+            className="select select-bordered w-full"
             id="atua_startup"
           >
             <option value="sim">Sim</option>
@@ -295,7 +295,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
           />
           <select
             {...register("rendimento_medio")}
-            className="border"
+            className="select select-bordered w-full"
             id="rendimento_medio"
           >
             <option value="ate_um_salario">Até 1 salário mínimo</option>
@@ -324,7 +324,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
           />
           <select
             {...register("satisfacao_renda_atual")}
-            className="border"
+            className="select select-bordered w-full"
             id="satisfacao_renda_atual"
           >
             <option value="satisfeito">Satisfeito</option>
@@ -342,7 +342,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
           />
           <select
             {...register("tipo_plataforma")}
-            className="border"
+            className="select select-bordered w-full"
             id="tipo_plataforma"
           >
             <option value="web">Web</option>
@@ -368,7 +368,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
           />
           <select
             {...register("tipo_contrato")}
-            className="border"
+            className="select select-bordered w-full"
             id="tipo_contrato"
           >
             <option value="clt">CLT</option>
@@ -383,7 +383,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
           />
           <select
             {...register("modalidade_trabalho")}
-            className="border"
+            className="select select-bordered w-full"
             id="modalidade_trabalho"
           >
             <option value="remoto">Remoto</option>
@@ -397,7 +397,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             htmlfor={"tempo_exp"}
             text="Qual seu tempo de experiência?"
           />
-          <select {...register("tempo_exp")} className="border" id="tempo_exp">
+          <select {...register("tempo_exp")} className="select select-bordered w-full" id="tempo_exp">
             <option value="menos_1_ano">Menos de 1 ano</option>
             <option value="entre_1_2_anos">Entre 1 e 2 anos</option>
             <option value="entre_2_4_anos">Entre 2 e 4 anos</option>
