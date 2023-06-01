@@ -131,7 +131,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("genero")}
             className="select select-bordered w-full"
             id="genero"
-            value={""}
+            
           >
             <option value="" disabled>
               ---
@@ -178,7 +178,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("campus_conclusao_curso")}
             className="select select-bordered w-full"
             id="campus_conclusao_curso"
-            value={""}
+            
           >
             <option value="" disabled>
               ---
@@ -205,7 +205,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("curso_realizado")}
             className="select select-bordered w-full"
             id="curso_realizado"
-            value={""}
+            
           >
             <option value="" disabled>
               ---
@@ -230,7 +230,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("avaliacao_curso")}
             className="select select-bordered w-full"
             id="avaliacao_curso"
-            value={""}
+            
           >
             <option value="" disabled>
               ---
@@ -251,7 +251,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("situacao_trabalho_estudo")}
             className="select select-bordered w-full"
             id="situacao_trabalho_estudo"
-            value={""}
+            
           >
             <option value="" disabled>
               ---
@@ -281,7 +281,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("setor_atuacao")}
             className="select select-bordered w-full"
             id="setor_atuacao"
-            value={""}
+            
           >
             <option value="" disabled>
               ---
@@ -302,7 +302,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("segmento_mercado")}
             className="select select-bordered w-full"
             id="segmento_mercado"
-            value={""}
+            
           >
             <option value="" disabled>
               ---
@@ -346,7 +346,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("atua_startup")}
             className="select select-bordered w-full"
             id="atua_startup"
-            value={""}
+            
           >
             <option value="" disabled>
               ---
@@ -366,7 +366,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("rendimento_medio")}
             className="select select-bordered w-full"
             id="rendimento_medio"
-            value={""}
+            
           >
             <option value="" disabled>
               ---
@@ -399,7 +399,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("satisfacao_renda_atual")}
             className="select select-bordered w-full"
             id="satisfacao_renda_atual"
-            value={""}
+            
           >
             <option value="" disabled>
               ---
@@ -421,7 +421,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("tipo_plataforma")}
             className="select select-bordered w-full"
             id="tipo_plataforma"
-            value={""}
+            
           >
             <option value="" disabled>
               ---
@@ -451,7 +451,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("tipo_contrato")}
             className="select select-bordered w-full"
             id="tipo_contrato"
-            value={""}
+            
           >
             <option value="" disabled>
               ---
@@ -470,7 +470,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("modalidade_trabalho")}
             className="select select-bordered w-full"
             id="modalidade_trabalho"
-            value={""}
+            
           >
             <option value="" disabled>
               ---
@@ -490,7 +490,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("tempo_exp")}
             className="select select-bordered w-full"
             id="tempo_exp"
-            value={""}
+            
           >
             <option value="" disabled>
               ---
