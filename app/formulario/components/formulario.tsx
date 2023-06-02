@@ -32,7 +32,9 @@ type PageProps = {
 
 export default function Formulario({ campus, cursos }: PageProps) {
   const [loading, setLoading] = useState<boolean | null>(null);
+  const [estaTrabalhando, setEstaTrabalhando] = useState<string | null>("");
   const router = useRouter();
+  const currentYear = new Date().getFullYear().toString();
   const {
     register,
     handleSubmit,
@@ -59,8 +61,6 @@ export default function Formulario({ campus, cursos }: PageProps) {
       tempo_exp: "",
     },
   });
-
-  // const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
 
   async function fetchFormToDatabase(data: FormInputs) {
     try {
@@ -131,7 +131,6 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("genero")}
             className="select select-bordered w-full"
             id="genero"
-            
           >
             <option value="" disabled>
               ---
@@ -159,14 +158,19 @@ export default function Formulario({ campus, cursos }: PageProps) {
           />
           <input
             id="ano_conclusao_curso"
+            min="1900"
+            max={currentYear}
             {...register("ano_conclusao_curso", {
-              max: 2023,
-              min: 1900,
-              value: "2023",
+              required: true,
+              max: `${currentYear}`,
+              min: "1900",
             })}
             className="input input-bordered w-full"
             type="number"
           />
+          {errors.ano_conclusao_curso && (
+            <p>`Esse campo deve estar entre 1900 e {currentYear}`</p>
+          )}
         </div>
         <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
@@ -178,7 +182,6 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("campus_conclusao_curso")}
             className="select select-bordered w-full"
             id="campus_conclusao_curso"
-            
           >
             <option value="" disabled>
               ---
@@ -205,7 +208,6 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("curso_realizado")}
             className="select select-bordered w-full"
             id="curso_realizado"
-            
           >
             <option value="" disabled>
               ---
@@ -230,7 +232,6 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("avaliacao_curso")}
             className="select select-bordered w-full"
             id="avaliacao_curso"
-            
           >
             <option value="" disabled>
               ---
@@ -251,7 +252,9 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("situacao_trabalho_estudo")}
             className="select select-bordered w-full"
             id="situacao_trabalho_estudo"
-            
+            onChange={(e) => {
+              setEstaTrabalhando(e.target.value);
+            }}
           >
             <option value="" disabled>
               ---
@@ -271,215 +274,215 @@ export default function Formulario({ campus, cursos }: PageProps) {
             </option>
           </select>
         </div>
-        <div className="divider"></div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <CustomLabel
-            htmlfor={"setor_atuacao"}
-            text="Qual o setor em que atua?"
-          />
-          <select
-            {...register("setor_atuacao")}
-            className="select select-bordered w-full"
-            id="setor_atuacao"
-            
-          >
-            <option value="" disabled>
-              ---
-            </option>
-            <option value="industria">Privado</option>
-            <option value="servicos">Público</option>
-            <option value="agricultura">Terceiro setor</option>
-            <option value="outro">Outro</option>
-          </select>
-        </div>
-        <div className="divider"></div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <CustomLabel
-            htmlfor={"segmento_mercado"}
-            text="Qual o segmento de mercado em que atua?"
-          />
-          <select
-            {...register("segmento_mercado")}
-            className="select select-bordered w-full"
-            id="segmento_mercado"
-            
-          >
-            <option value="" disabled>
-              ---
-            </option>
-            <option value="agricultura">Agricultura</option>
-            <option value="comunicacao_midia">Comunicação e mídia</option>
-            <option value="construcao_engenharia">
-              Construção e engenharia
-            </option>
-            <option value="consultoria_negocios">Consultoria e negócios</option>
-            <option value="educacao_pesq_cientifica">
-              Educação e Pesquisa Científica
-            </option>
-            <option value="energia_meio_ambiente">
-              Energia e Meio Ambiente
-            </option>
-            <option value="entretenimento">Entretenimento</option>
-            <option value="games">Games</option>
-            <option value="governo_administracao_publica">
-              Governo e administração pública
-            </option>
-            <option value="imobiliario">Imobiliário</option>
-            <option value="industria">Indústria</option>
-            <option value="produtos_software">Produtos de Software</option>
-            <option value="recursos_humanos">Recursos Humanos</option>
-            <option value="saude">Saude</option>
-            <option value="seguros">Seguros</option>
-            <option value="serv_financeiros">Serviços financeiros</option>
-            <option value="transp_logistica">Transporte e Logística</option>
-            <option value="varejo_com_eletronico">
-              Varejo e comércio eletrônico
-            </option>
-            <option value="viagem_turismo">Viagem e Turismo</option>
-            <option value="outro">Outro</option>
-          </select>
-        </div>
-        <div className="divider"></div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <CustomLabel htmlfor={"atua_startup"} text="Atua em Startup?" />
-          <select
-            {...register("atua_startup")}
-            className="select select-bordered w-full"
-            id="atua_startup"
-            
-          >
-            <option value="" disabled>
-              ---
-            </option>
-            <option value="sim">Sim</option>
-            <option value="nao">Não</option>
-          </select>
-        </div>
-        <div className="divider"></div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <CustomLabel
-            htmlfor={"rendimento_medio"}
-            text="Qual seu rendimento médio mensal, considerando apenas a sua
+        
+        {(estaTrabalhando === "apenas_trabalhando" ||
+          estaTrabalhando === "trabalhando_estudando") && (
+          <>
+            <div className="divider"></div>
+            <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
+              <CustomLabel
+                htmlfor={"setor_atuacao"}
+                text="Qual o setor em que atua?"
+              />
+              <select
+                {...register("setor_atuacao")}
+                className="select select-bordered w-full"
+                id="setor_atuacao"
+              >
+                <option value="" disabled>
+                  ---
+                </option>
+                <option value="industria">Privado</option>
+                <option value="servicos">Público</option>
+                <option value="agricultura">Terceiro setor</option>
+                <option value="outro">Outro</option>
+              </select>
+            </div>
+            <div className="divider"></div>
+            <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
+              <CustomLabel
+                htmlfor={"segmento_mercado"}
+                text="Qual o segmento de mercado em que atua?"
+              />
+              <select
+                {...register("segmento_mercado")}
+                className="select select-bordered w-full"
+                id="segmento_mercado"
+              >
+                <option value="" disabled>
+                  ---
+                </option>
+                <option value="agricultura">Agricultura</option>
+                <option value="comunicacao_midia">Comunicação e mídia</option>
+                <option value="construcao_engenharia">
+                  Construção e engenharia
+                </option>
+                <option value="consultoria_negocios">
+                  Consultoria e negócios
+                </option>
+                <option value="educacao_pesq_cientifica">
+                  Educação e Pesquisa Científica
+                </option>
+                <option value="energia_meio_ambiente">
+                  Energia e Meio Ambiente
+                </option>
+                <option value="entretenimento">Entretenimento</option>
+                <option value="games">Games</option>
+                <option value="governo_administracao_publica">
+                  Governo e administração pública
+                </option>
+                <option value="imobiliario">Imobiliário</option>
+                <option value="industria">Indústria</option>
+                <option value="produtos_software">Produtos de Software</option>
+                <option value="recursos_humanos">Recursos Humanos</option>
+                <option value="saude">Saude</option>
+                <option value="seguros">Seguros</option>
+                <option value="serv_financeiros">Serviços financeiros</option>
+                <option value="transp_logistica">Transporte e Logística</option>
+                <option value="varejo_com_eletronico">
+                  Varejo e comércio eletrônico
+                </option>
+                <option value="viagem_turismo">Viagem e Turismo</option>
+                <option value="outro">Outro</option>
+              </select>
+            </div>
+            <div className="divider"></div>
+            <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
+              <CustomLabel htmlfor={"atua_startup"} text="Atua em Startup?" />
+              <select
+                {...register("atua_startup")}
+                className="select select-bordered w-full"
+                id="atua_startup"
+              >
+                <option value="" disabled>
+                  ---
+                </option>
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+              </select>
+            </div>
+            <div className="divider"></div>
+            <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
+              <CustomLabel
+                htmlfor={"rendimento_medio"}
+                text="Qual seu rendimento médio mensal, considerando apenas a sua
             atividade profissional?"
-          />
-          <select
-            {...register("rendimento_medio")}
-            className="select select-bordered w-full"
-            id="rendimento_medio"
-            
-          >
-            <option value="" disabled>
-              ---
-            </option>
-            <option value="ate_um_salario">Até 1 salário mínimo</option>
-            <option value="entre_um_e_dois_salarios">
-              Entre 1 e 2 salários mínimos
-            </option>
-            <option value="entre_dois_e_tres_salarios">
-              Entre 2 e 3 salários mínimos
-            </option>
-            <option value="entre_tres_e_cinco_salarios">
-              Entre 3 e 5 salários mínimos
-            </option>
-            <option value="entre_cinco_e_dez_salarios">
-              Entre 5 e 10 salários mínimos
-            </option>
-            <option value="mais_de_dez_salarios">
-              Acima de 10 salários mínimos
-            </option>
-          </select>
-        </div>
-        <div className="divider"></div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <CustomLabel
-            htmlfor={"satisfacao_renda_atual"}
-            text="Qual sua satisfação com a sua renda atual?"
-          />
-          <select
-            {...register("satisfacao_renda_atual")}
-            className="select select-bordered w-full"
-            id="satisfacao_renda_atual"
-            
-          >
-            <option value="" disabled>
-              ---
-            </option>
-            <option value="satisfeito">Satisfeito</option>
-            <option value="insatisfeito">Insatisfeito</option>
-            <option value="indiferente">Indiferente</option>
-            <option value="muito_satisfeito">Muito Satisfeito</option>
-            <option value="muito_insatisfeito">Muito Insatisfeito</option>
-          </select>
-        </div>
-        <div className="divider"></div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <CustomLabel
-            htmlfor={"tipo_plataforma"}
-            text="Trabalha em que tipo de plataforma?"
-          />
-          <select
-            {...register("tipo_plataforma")}
-            className="select select-bordered w-full"
-            id="tipo_plataforma"
-            
-          >
-            <option value="" disabled>
-              ---
-            </option>
-            <option value="web">Web</option>
-            <option value="backend">Back-End</option>
-            <option value="dados">Dados</option>
-            <option value="mobile">Mobile</option>
-            <option value="qa">QA</option>
-            <option value="desktop">Desktop</option>
-            <option value="devops">DevOPS</option>
-            <option value="banco_de_dados">Banco de Dados</option>
-            <option value="embarcados">Embarcados</option>
-            <option value="seg_info">Segurança da Informação</option>
-            <option value="games">Games</option>
-            <option value="iot">IoT</option>
-            <option value="outros">Outros</option>
-          </select>
-        </div>
-        <div className="divider"></div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <CustomLabel
-            htmlfor={"tipo_contrato"}
-            text="Qual seu tipo de contrato de trabalho?"
-          />
-          <select
-            {...register("tipo_contrato")}
-            className="select select-bordered w-full"
-            id="tipo_contrato"
-            
-          >
-            <option value="" disabled>
-              ---
-            </option>
-            <option value="clt">CLT</option>
-            <option value="pj">PJ</option>
-          </select>
-        </div>
-        <div className="divider"></div>
-        <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
-          <CustomLabel
-            htmlfor={"modalidade_trabalho"}
-            text="Em qual modalidade de trabalho você está atualmente?"
-          />
-          <select
-            {...register("modalidade_trabalho")}
-            className="select select-bordered w-full"
-            id="modalidade_trabalho"
-            
-          >
-            <option value="" disabled>
-              ---
-            </option>
-            <option value="remoto">Remoto</option>
-            <option value="hibrido">Hibrido</option>
-            <option value="presencial">Presencial</option>
-          </select>
-        </div>
+              />
+              <select
+                {...register("rendimento_medio")}
+                className="select select-bordered w-full"
+                id="rendimento_medio"
+              >
+                <option value="" disabled>
+                  ---
+                </option>
+                <option value="ate_um_salario">Até 1 salário mínimo</option>
+                <option value="entre_um_e_dois_salarios">
+                  Entre 1 e 2 salários mínimos
+                </option>
+                <option value="entre_dois_e_tres_salarios">
+                  Entre 2 e 3 salários mínimos
+                </option>
+                <option value="entre_tres_e_cinco_salarios">
+                  Entre 3 e 5 salários mínimos
+                </option>
+                <option value="entre_cinco_e_dez_salarios">
+                  Entre 5 e 10 salários mínimos
+                </option>
+                <option value="mais_de_dez_salarios">
+                  Acima de 10 salários mínimos
+                </option>
+              </select>
+            </div>
+            <div className="divider"></div>
+            <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
+              <CustomLabel
+                htmlfor={"satisfacao_renda_atual"}
+                text="Qual sua satisfação com a sua renda atual?"
+              />
+              <select
+                {...register("satisfacao_renda_atual")}
+                className="select select-bordered w-full"
+                id="satisfacao_renda_atual"
+              >
+                <option value="" disabled>
+                  ---
+                </option>
+                <option value="satisfeito">Satisfeito</option>
+                <option value="insatisfeito">Insatisfeito</option>
+                <option value="indiferente">Indiferente</option>
+                <option value="muito_satisfeito">Muito Satisfeito</option>
+                <option value="muito_insatisfeito">Muito Insatisfeito</option>
+              </select>
+            </div>
+            <div className="divider"></div>
+            <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
+              <CustomLabel
+                htmlfor={"tipo_plataforma"}
+                text="Trabalha em que tipo de plataforma?"
+              />
+              <select
+                {...register("tipo_plataforma")}
+                className="select select-bordered w-full"
+                id="tipo_plataforma"
+              >
+                <option value="" disabled>
+                  ---
+                </option>
+                <option value="web">Web</option>
+                <option value="backend">Back-End</option>
+                <option value="dados">Dados</option>
+                <option value="mobile">Mobile</option>
+                <option value="qa">QA</option>
+                <option value="desktop">Desktop</option>
+                <option value="devops">DevOPS</option>
+                <option value="banco_de_dados">Banco de Dados</option>
+                <option value="embarcados">Embarcados</option>
+                <option value="seg_info">Segurança da Informação</option>
+                <option value="games">Games</option>
+                <option value="iot">IoT</option>
+                <option value="outros">Outros</option>
+              </select>
+            </div>
+            <div className="divider"></div>
+            <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
+              <CustomLabel
+                htmlfor={"tipo_contrato"}
+                text="Qual seu tipo de contrato de trabalho?"
+              />
+              <select
+                {...register("tipo_contrato")}
+                className="select select-bordered w-full"
+                id="tipo_contrato"
+              >
+                <option value="" disabled>
+                  ---
+                </option>
+                <option value="clt">CLT</option>
+                <option value="pj">PJ</option>
+              </select>
+            </div>
+            <div className="divider"></div>
+            <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
+              <CustomLabel
+                htmlfor={"modalidade_trabalho"}
+                text="Em qual modalidade de trabalho você está atualmente?"
+              />
+              <select
+                {...register("modalidade_trabalho")}
+                className="select select-bordered w-full"
+                id="modalidade_trabalho"
+              >
+                <option value="" disabled>
+                  ---
+                </option>
+                <option value="remoto">Remoto</option>
+                <option value="hibrido">Hibrido</option>
+                <option value="presencial">Presencial</option>
+              </select>
+            </div>
+          </>
+        )}
         <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel
@@ -490,11 +493,11 @@ export default function Formulario({ campus, cursos }: PageProps) {
             {...register("tempo_exp")}
             className="select select-bordered w-full"
             id="tempo_exp"
-            
           >
             <option value="" disabled>
               ---
             </option>
+            <option value="sem_experiencia">Sem experiência</option>
             <option value="menos_1_ano">Menos de 1 ano</option>
             <option value="entre_1_2_anos">Entre 1 e 2 anos</option>
             <option value="entre_2_4_anos">Entre 2 e 4 anos</option>
