@@ -128,7 +128,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel htmlfor={"genero"} text="Genero" />
           <select
-            {...register("genero")}
+            {...register("genero", {required: true})}
             className="select select-bordered w-full"
             id="genero"
           >
@@ -139,6 +139,9 @@ export default function Formulario({ campus, cursos }: PageProps) {
             <option value="feminino">Feminino</option>
             <option value="outro">Outro</option>
           </select>
+           {errors.genero && (
+            <span className="text-red-600">Este campo é necessário.</span>
+          )}
         </div>
         <div className="divider"></div>
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
@@ -169,7 +172,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             type="number"
           />
           {errors.ano_conclusao_curso && (
-            <p>`Esse campo deve estar entre 1900 e {currentYear}`</p>
+            <span className="text-red-600">Este campo é necessário. Deve estar entre 1900 e {currentYear}</span>
           )}
         </div>
         <div className="divider"></div>
