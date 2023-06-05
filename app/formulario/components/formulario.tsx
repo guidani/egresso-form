@@ -105,7 +105,8 @@ export default function Formulario({ campus, cursos }: PageProps) {
           <input
             type="email"
             id="email"
-            {...register("email", { required: true })}
+            maxLength={100}
+            {...register("email", { required: true, maxLength: 100 })}
             className="input input-bordered w-full"
           />
           {errors.email && (
@@ -116,9 +117,10 @@ export default function Formulario({ campus, cursos }: PageProps) {
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel htmlfor={"nome"} text="Nome" />
           <input
-            {...register("nome", { required: true })}
+            {...register("nome", { required: true, maxLength: 250 })}
             className="input input-bordered w-full"
             id="nome"
+            maxLength={250}
           />
           {errors.nome && (
             <span className="text-red-600">Este campo é necessário.</span>
@@ -128,7 +130,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
         <div className="flex flex-col bg-white border-t-8 border-green-700 p-2 md:px-24 md:py-4">
           <CustomLabel htmlfor={"genero"} text="Genero" />
           <select
-            {...register("genero", {required: true})}
+            {...register("genero", { required: true })}
             className="select select-bordered w-full"
             id="genero"
           >
@@ -139,7 +141,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             <option value="feminino">Feminino</option>
             <option value="outro">Outro</option>
           </select>
-           {errors.genero && (
+          {errors.genero && (
             <span className="text-red-600">Este campo é necessário.</span>
           )}
         </div>
@@ -172,7 +174,9 @@ export default function Formulario({ campus, cursos }: PageProps) {
             type="number"
           />
           {errors.ano_conclusao_curso && (
-            <span className="text-red-600">Este campo é necessário. Deve estar entre 1900 e {currentYear}</span>
+            <span className="text-red-600">
+              Este campo é necessário. Deve estar entre 1900 e {currentYear}
+            </span>
           )}
         </div>
         <div className="divider"></div>
@@ -277,7 +281,7 @@ export default function Formulario({ campus, cursos }: PageProps) {
             </option>
           </select>
         </div>
-        
+
         {(estaTrabalhando === "apenas_trabalhando" ||
           estaTrabalhando === "trabalhando_estudando") && (
           <>

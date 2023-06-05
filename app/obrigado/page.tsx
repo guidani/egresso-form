@@ -12,7 +12,7 @@ export default function Page() {
     const timer = setTimeout(() => {
       setSeconds((prevSeconds) => prevSeconds - 1);
     }, 1000);
-    
+
     return () => {
       clearTimeout(timer);
     };
@@ -23,11 +23,8 @@ export default function Page() {
       <div className="hero-content text-center">
         <div className="max-w-lg">
           <h1 className="text-5xl font-bold mb-4">
-            Obrigado por particiar da pesquisa!
+            Obrigado por participar da pesquisa!
           </h1>
-          {/* <Link href={"/"}>
-            <button className="btn btn-success">Voltar</button>
-          </Link> */}
           <div
             className="radial-progress bg-success"
             style={{
